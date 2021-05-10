@@ -10,37 +10,31 @@ class LinearRegression:
     deg : int
             The degree of polynoms used in the model
     """
-    def __init__(self, deg = 1):
+
+    def __init__(self, deg=1):
         self.deg = deg
 
-
     def fit(self, X, y):
-        """Class for a Regression Analysis
+        """Estimates the Regression parameters beta
 
-            Parameters
-            ----------
-            X : DataFrame
-                    The input feature matrix without threshold column
-            y : DataFrame
-                    The dependent variable
+        Parameters
+        ----------
+        X : DataFrame
+                The input feature matrix without threshold column
+        y : DataFrame
+                The dependent variable
 
-            Returns
-            ----------
+        Returns
+        ----------
+        beta : 1-dim DataFrame with Regression parameters
 
-            """
-        X = X.insert(0,0)
-        X_t = X.t
+        """
+        X.insert(0, "constant", 1)
+        X_t = X.transpose()
 
-        beta = np.linalg.inv(X_t.dot(X)) * X_t*y
+        beta = np.array(np.linalg.inv(X_t.dot(X)).dot(X_t.dot(y)))
 
-        beta = X.dot(X.T)
-
+        return beta
 
     def predict(self):
         pass
-
-    def __repr__(self):
-        pass
-
-
-
