@@ -7,16 +7,14 @@ class LinearRegression:
 
     Attributes
     ----------
-    X : DataFrame
-            The input feature matrix without threshold column
-    y : DataFrame
-            The dependent variable
+    deg : int
+            The degree of polynoms used in the model
     """
-    def __init__(self, X, y):
-        self.X = X
-        self.y = y
+    def __init__(self, deg = 1):
+        self.deg = deg
 
-    def fit(self):
+
+    def fit(self, X, y):
         """Class for a Regression Analysis
 
             Parameters
@@ -30,9 +28,13 @@ class LinearRegression:
             ----------
 
             """
+        X = X.insert(0,0)
+        X_t = X.t
 
+        beta = np.linalg.inv(X_t.dot(X)) * X_t*y
 
-        pass
+        beta = X.dot(X.T)
+
 
     def predict(self):
         pass
@@ -42,6 +44,3 @@ class LinearRegression:
 
 
 
-
-
-class PolynomialRegression:

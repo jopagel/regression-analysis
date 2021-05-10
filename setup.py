@@ -16,8 +16,7 @@ def parse_requirements(filename: Union[str, Path], exclude: Union[Tuple, List] =
     return [
         line
         for line in lineiter
-        if line and not in line.startswith("#") and not line.split("=")[0][:-1] in exclude
-    ]
+        if line and not line.startswith("#") and not line.split("=")[0][:-1] in exclude]
 
 DIR = Path(__file__).parent
 
@@ -26,15 +25,15 @@ install_reqs = parse_requirements(DIR / "requirements.txt")
 dev_reqs = parse_requirements(DIR / "requirements_dev.txt")
 
 
-with open(DIR / "version") as version_file:
-    version = version_file.readline().strip()
+#with open(DIR / "version") as version_file:
+#    version = version_file.readline().strip()
 
 
-setup(name='regression-models',
-      version=version,
+setup(name='regressionmodels',
+      version="0.0.1",
       description='Gaussian distributions',
       long_description=README,
       install_requires=install_reqs,
       extras_require={"dev": dev_reqs},
-      packages=['regression-models'],
+      packages=['regressionmodels'],
     )
