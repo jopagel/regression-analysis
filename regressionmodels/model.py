@@ -14,7 +14,7 @@ class LinearRegression:
     def __init__(self, deg=1):
         self.deg = deg
 
-    def fit(self, X, y):
+    def fit(X, y):
         """Estimates the Regression parameters beta
 
         Parameters
@@ -29,10 +29,22 @@ class LinearRegression:
         beta : 1-dim DataFrame with Regression parameters
 
         """
-        X.insert(0, "constant", 1)
-        X_t = X.transpose()
+        nr_columns = len(X.columns)
+        if deg > 1:
+            X_pol = pd.DataFrame()
+            for d in range(deg):
+                for i in range(nr_columns):
+                    X_pol.insert(len(X_pol.columns), f"f{i + 1}deg{d + 1}", X.iloc[:, i] ** (d + 1))
+        else:
+            X_pol = X
 
-        beta = np.array(np.linalg.inv(X_t.dot(X)).dot(X_t.dot(y)))
+        X_pol.insert(0, "constant", 1)
+
+        X_t = X_pol.transpose()
+
+        print(X_pol)
+
+        beta = np.array(np.linalg.inv(X_t.dot(X_pol)).dot(X_t.dot(y)))
 
         return beta
 
