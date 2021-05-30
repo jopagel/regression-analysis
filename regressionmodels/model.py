@@ -30,13 +30,12 @@ class LinearRegression:
 
         """
         nr_columns = len(X.columns)
+        X_pol = X
         if deg > 1:
             X_pol = pd.DataFrame()
             for d in range(deg):
                 for i in range(nr_columns):
                     X_pol.insert(len(X_pol.columns), f"f{i + 1}deg{d + 1}", X.iloc[:, i] ** (d + 1))
-        else:
-            X_pol = X
 
         X_pol.insert(0, "constant", 1)
 
