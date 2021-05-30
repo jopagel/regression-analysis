@@ -2,7 +2,7 @@ import numpy as np
 import pandas as pd
 
 
-class LinearRegression:
+class Regression:
     """Class for a Regression Analysis
 
     Attributes
@@ -14,7 +14,7 @@ class LinearRegression:
     def __init__(self, deg=1):
         self.deg = deg
 
-    def fit(X, y):
+    def fit(self, X, y):
         """Estimates the Regression parameters beta
 
         Parameters
@@ -26,16 +26,20 @@ class LinearRegression:
 
         Returns
         ----------
-        beta : 1-dim DataFrame with Regression parameters
+        beta : 1-dim DataFrame with Regression parameters beta
 
         """
         nr_columns = len(X.columns)
         X_pol = X
-        if deg > 1:
+        if self.deg > 1:
             X_pol = pd.DataFrame()
             for d in range(deg):
                 for i in range(nr_columns):
-                    X_pol.insert(len(X_pol.columns), f"f{i + 1}deg{d + 1}", X.iloc[:, i] ** (d + 1))
+                    X_pol.insert(
+                        len(X_pol.columns),
+                        f"f{i + 1}deg{d + 1}",
+                        X.iloc[:, i] ** (d + 1),
+                    )
 
         X_pol.insert(0, "constant", 1)
 
@@ -44,8 +48,24 @@ class LinearRegression:
         print(X_pol)
 
         beta = np.array(np.linalg.inv(X_t.dot(X_pol)).dot(X_t.dot(y)))
+        self.beta = beta
 
         return beta
 
-    def predict(self):
-        pass
+    def predict(self, X):
+        """Predicts new observations by applying beta estimations
+
+        Parameters
+        ----------
+        X : DataFrame
+                The observed features to be predicted on
+
+        Returns
+        ----------
+        y : The predicted dependend variable
+
+        """
+        X.insert(0, "constant", 1)
+        y = X.dot(self.beta)
+
+        return y
