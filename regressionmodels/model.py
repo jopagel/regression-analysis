@@ -31,7 +31,8 @@ class Regression:
         """
         nr_columns = len(X.columns)
         X_pol = X
-        if self.deg > 1:
+        deg = self.deg
+        if deg > 1:
             X_pol = pd.DataFrame()
             for d in range(deg):
                 for i in range(nr_columns):
@@ -45,9 +46,8 @@ class Regression:
 
         X_t = X_pol.transpose()
 
-        print(X_pol)
-
-        beta = np.array(np.linalg.inv(X_t.dot(X_pol)).dot(X_t.dot(y)))
+        beta = np.array(np.linalg.pinv(X_t.dot(X_pol)).dot(X_t.dot(y)))
+        beta = np.around(beta,2)
         self.beta = beta
 
         return beta
@@ -65,7 +65,20 @@ class Regression:
         y : The predicted dependend variable
 
         """
+        nr_columns = len(X.columns)
+        X_pol = X
+        deg = self.deg
+        if deg > 1:
+            X_pol = pd.DataFrame()
+            for d in range(deg):
+                for i in range(nr_columns):
+                    X_pol.insert(
+                        len(X_pol.columns),
+                        f"f{i + 1}deg{d + 1}",
+                        X.iloc[:, i] ** (d + 1),
+                    )
+
         X.insert(0, "constant", 1)
-        y = X.dot(self.beta)
+        y = X_pol.dot(self.beta)
 
         return y

@@ -1,11 +1,11 @@
 import unittest
 import pandas as pd
-import numpy as np
 
-from regressionmodels.model import LinearRegression
+from regressionmodels.model import Regression
 
-X = pd.DataFrame([[2, 3, 4]]).transpose()
-y = pd.DataFrame([4, 6, 8])
+X = pd.DataFrame([2, 3, 4])
+y = pd.DataFrame([6, 9, 12])
+X_test = pd.DataFrame([3,4,5])
 
 
 class MyTestCase(unittest.TestCase):
@@ -13,14 +13,11 @@ class MyTestCase(unittest.TestCase):
         self.linearregression = Regression()
         self.polynomialregression = Regression(deg=2)
 
-    def test_linear(self):
-        self.assertEqual(self.linearregression.fit(X, y)[1], 2.0)
+    def test_linear_fit(self):
+        self.assertEqual(self.linearregression.fit(X, y)[1], 3.0)
 
-    def test_polynomial(self):
-        self.assertEqual(self.polynomialregression.fit(X, y)[1], 2.0)
-
-    # can be augmented with elemtent of beta different from [1], in order to check the polynomial parameters
-
+    def test_polynomial_fit(self):
+        self.assertEqual(self.polynomialregression.fit(X, y)[0], 0.0)
 
 if __name__ == "__main__":
     unittest.main()
