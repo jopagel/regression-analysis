@@ -1,7 +1,7 @@
 Regressionmodels 
 =======
 
-####A package which can be used to fit linear- as well as polynomial Regression Models to n-dimensional data.
+#### A package which can be used to fit linear- as well as polynomial Regression Models to n-dimensional data.
 
 # Installation 
 
