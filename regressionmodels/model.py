@@ -47,7 +47,7 @@ class Regression:
         X_t = X_pol.transpose()
 
         beta = np.array(np.linalg.pinv(X_t.dot(X_pol)).dot(X_t.dot(y)))
-        beta = np.around(beta,2)
+        beta = np.around(beta, 2)
         self.beta = beta
 
         return beta

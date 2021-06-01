@@ -36,6 +36,7 @@ setup(
     version="0.0.1",
     description="Gaussian distributions",
     long_description=README,
+    long_description_content_type="text/markdown",
     install_requires=install_reqs,
     extras_require={"dev": dev_reqs},
     packages=["regressionmodels"],

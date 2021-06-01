@@ -5,7 +5,7 @@ from regressionmodels.model import Regression
 
 X = pd.DataFrame([2, 3, 4])
 y = pd.DataFrame([6, 9, 12])
-X_test = pd.DataFrame([3,4,5])
+X_test = pd.DataFrame([3, 4, 5])
 
 
 class MyTestCase(unittest.TestCase):
@@ -18,6 +18,7 @@ class MyTestCase(unittest.TestCase):
 
     def test_polynomial_fit(self):
         self.assertEqual(self.polynomialregression.fit(X, y)[0], 0.0)
+
 
 if __name__ == "__main__":
     unittest.main()
