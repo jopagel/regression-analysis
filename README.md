@@ -13,7 +13,7 @@ You can install the package via:
 
 If you already installed the package you can update it via:
 
-`pip install --upgrade sdllib`
+`pip install --upgrade regressionmodels`
 
 #Installation for Developers
 
